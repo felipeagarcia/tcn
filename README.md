@@ -11,9 +11,9 @@ To run this code, you will need Python3, tensorflow, numpy and sklearn.
 
 To install the python libraries, use:
 
-'''
+```
 pip install tensorflow numpy sklearn
-'''
+```
 
 It is recomended to do this inside a virtual environment.
 
@@ -30,8 +30,8 @@ For a faster training, use tensorflow-gpu, here is a good guide to install it: h
 
 To run the project, go to the src/ directory and type:
 
-'''
+```
 python main.py
-'''
+```
 
 This will train and evaluate the model.
