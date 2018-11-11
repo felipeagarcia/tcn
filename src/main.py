@@ -15,15 +15,9 @@ if __name__ == '__main__':
     os.environ['CUDA_VISIBLE_DEVICES'] = str(1)
     inputs, labels = data.open_data(max_len=max_len)
     inputs, labels = np.array(inputs), np.array(labels)
-    test_inputs = inputs[int(0.8*len(inputs)):len(inputs)]
-    test_labels = labels[int(0.8*len(labels)):len(labels)]
-    inputs = inputs[0:int(0.8*len(inputs))]
-    labels = labels[0:int(0.8*len(labels))]
     model = TCN(n_classes)
     inputs = np.reshape(inputs, (-1, timesteps, num_features))
-    test_inputs = np.reshape(test_inputs, (-1, timesteps, num_features))
     shape = inputs.shape[1:]
     model.create_tcn(shape)
     model.compile(lean_rate)
     model.fit(inputs, labels, num_epochs, batch_size)
-    model.evaluate(test_inputs, test_labels, 2)
