@@ -3,7 +3,7 @@ import tensorflow as tf
 
 class TCN():
     def __init__(self, num_classes, kernel_size=(2),
-                 filter_size=[128, 128, 128], pool_size=(2),
+                 filter_size=[128, 256, 128], pool_size=(2),
                  num_cnn_layers=3, dropout_rate=0.4):
         self.num_classes = num_classes
         self.pool_size = pool_size
@@ -43,7 +43,7 @@ class TCN():
 
     def fit(self, input_data, labels, num_epochs, batch_size):
         self.model.fit(input_data, labels, epochs=num_epochs,
-                       batch_size=batch_size)
+                       batch_size=batch_size, validation_split=0.2)
 
     def evaluate(self, test_data, test_labels, steps):
         loss, accuracy = self.model.evaluate(test_data, test_labels,
