@@ -2,8 +2,8 @@ import tensorflow as tf
 
 
 class TCN():
-    def __init__(self, num_classes, kernel_size=(2),
-                 filter_size=[128, 256, 128], pool_size=(2),
+    def __init__(self, num_classes, kernel_size=(5),
+                 filter_size=[128, 256, 256], pool_size=(2),
                  num_cnn_layers=3, dropout_rate=0.4):
         self.num_classes = num_classes
         self.pool_size = pool_size
