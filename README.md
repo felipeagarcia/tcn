@@ -35,3 +35,5 @@ python main.py
 ```
 
 This will train and evaluate the model.
+
+To use the model in your project, just copy and paste the src/TCN.py file into your project and include it!
