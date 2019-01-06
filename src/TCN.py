@@ -2,9 +2,10 @@ import tensorflow as tf
 
 
 class TCN():
-    def __init__(self, num_classes, kernel_size=(5),
+    def __init__(self, num_classes, kernel_size=(3),
                  filter_size=[128, 256, 256], pool_size=(2),
-                 num_cnn_layers=3, dropout_rate=0.4):
+                 num_cnn_layers=3, dropout_rate=0.3,
+                 dilations=[1,2,4]):
         self.num_classes = num_classes
         self.pool_size = pool_size
         self.num_cnn_layers = num_cnn_layers
@@ -15,18 +16,21 @@ class TCN():
             raise Exception("Filter size must be of the same lenght as\
                              num_cnn_layers")
         self.filter_size = filter_size
+        self.dilations = dilations
         self.model = None
 
     def create_tcn(self, input_shape):
         # input_shape must be (time_steps, num_features)
         model = tf.keras.models.Sequential()
         model.add(tf.keras.layers.Conv1D(self.filter_size[0], self.kernel_size,
-                                         input_shape=input_shape))
+                                         input_shape=input_shape,
+                                         dilation_rate=self.dilations[0]))
         model.add(tf.keras.layers.Activation('relu'))
         model.add(tf.keras.layers.MaxPool1D(self.pool_size))
         for layer in range(1, self.num_cnn_layers):
             model.add(tf.keras.layers.Conv1D(self.filter_size[layer],
-                      self.kernel_size))
+                      self.kernel_size,
+                      dilation_rate=self.dilations[layer]))
             model.add(tf.keras.layers.Activation('relu'))
             model.add(tf.keras.layers.MaxPool1D(self.pool_size))
         model.add(tf.keras.layers.Flatten())
